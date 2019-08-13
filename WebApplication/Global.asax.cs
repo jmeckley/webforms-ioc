@@ -19,9 +19,11 @@ namespace WebApplication
                     .RegisterType<IRepository<DefaultViewModel>, DefaultViewModelRepository>()
                     .RegisterType<IValidator, DataAnnotationValidator>()
                     .RegisterType<IServiceProvider, UnityServiceProvider>()
+                    /*convention to load settings from web.config*/
                     .RegisterSettingsFromAssemblyContaining<Input>()
                 ;
 
+            /*follows the same approach as MS MVC DependencyResolver*/
             DependencyResolver.Set(new UnityDependencyResolver(_container));
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);

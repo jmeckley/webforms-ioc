@@ -19,26 +19,33 @@ namespace WebApi
         {
             var container = new UnityContainer()
                     .EnableDiagnostic()
+                    
+                    /*required to resolve controllers from the container instead of the default ctor*/
+                    .RegisterType<IHttpControllerActivator, UnityHttpControllerActivator>()
 
-                    .RegisterInstance(config)
-                    .RegisterInstance(new XmlDocumentationProvider(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin", "WebApi.xml")))
+                    /*example of registration required for IRepository*/
+                    .RegisterType<IRepository, InMemoryRepository>()
                     .RegisterInstance(new ConcurrentDictionary<int, Entity>())
 
-                    .RegisterType<IHttpControllerActivator, UnityHttpControllerActivator>()
-                    .RegisterType<IApiExplorer, ApiExplorer>()
-                    .RegisterType<IRepository, InMemoryRepository>()
+                    /*registered for convenience*/
+                    .RegisterInstance(config)
 
+                    /*dependencies of HelpController*/
+                    .RegisterInstance(new XmlDocumentationProvider(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin", "WebApi.xml")))
+                    .RegisterType<IApiExplorer, ApiExplorer>()
                     .RegisterFactory<IDocumentationProvider>(_ => _.Resolve<XmlDocumentationProvider>())
                     .RegisterFactory<IModelDocumentationProvider>(_ => _.Resolve<XmlDocumentationProvider>())
                     .RegisterFactory<Func<string, HelpPageApiModel>>(_ => new Func<string, HelpPageApiModel>(config.GetHelpPageApiModel))
                 ;
 
+            /*WebApi resolver*/
             config.DependencyResolver = new UnityDependencyResolver(container);
 
             config.MapHttpAttributeRoutes();
 
             config.Filters.Add(new ValidationFilterAttribute());
 
+            /*MVC resolver*/
             DependencyResolver.SetResolver(new UnityMvcDependencyResolver(container));
         }
     }
