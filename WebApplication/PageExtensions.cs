@@ -10,6 +10,8 @@ namespace WebApplication
     public static class PageExtensions
     {
         public static void AddValidationErrors(this ValidatorCollection validator, IEnumerable<ValidationResult> results) =>
-            results.Select(result => new CustomValidator { IsValid = false, ErrorMessage = result.ErrorMessage }).Each(validator.Add);
+            results
+                .Select(result => new CustomValidator { IsValid = false, ErrorMessage = result.ErrorMessage })
+                .Each(validator.Add);
     }
 }
