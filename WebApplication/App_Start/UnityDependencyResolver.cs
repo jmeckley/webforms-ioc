@@ -22,15 +22,7 @@ namespace WebApplication
 
         public IEnumerable<object> ResolveAll(Type serviceType)
         {
-            if (IsRegistered(serviceType))
-            {
-                yield return ChildContainer.Resolve(serviceType);
-            }
-
-            foreach (var service in ChildContainer.ResolveAll(serviceType))
-            {
-                yield return service;
-            }
+            return ChildContainer.ResolveAll(serviceType);
         }
 
         protected IUnityContainer ChildContainer
@@ -45,25 +37,6 @@ namespace WebApplication
                 items[HttpContextKey] = childContainer = _container.CreateChildContainer();
                 return childContainer;
             }
-        }
-
-        private bool IsRegistered(Type typeToCheck)
-        {
-            var isRegistered = true;
-
-            if (typeToCheck.IsInterface || typeToCheck.IsAbstract)
-            {
-                isRegistered = ChildContainer.IsRegistered(typeToCheck);
-
-                if (!isRegistered && typeToCheck.IsGenericType)
-                {
-                    var openGenericType = typeToCheck.GetGenericTypeDefinition();
-
-                    isRegistered = ChildContainer.IsRegistered(openGenericType);
-                }
-            }
-
-            return isRegistered;
         }
 
         public static void DisposeOfChildContainer()
