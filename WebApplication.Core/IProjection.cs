@@ -1,6 +1,6 @@
 ﻿namespace WebApplication.Core
 {
-    public interface IRepository<out T>
+    public interface IProjection<out T>
     {
         T GetData();
     }

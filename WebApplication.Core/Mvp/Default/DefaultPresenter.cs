@@ -2,14 +2,14 @@
 {
     public class DefaultPresenter
     {
-        private readonly IRepository<DefaultViewModel> _repository;
+        private readonly IProjection<DefaultViewModel> _projection;
         private readonly IValidator _validator;
         private readonly IService _service;
         private IDefaultView _view;
 
-        public DefaultPresenter(IRepository<DefaultViewModel> repository, IValidator validator, IService service)
+        public DefaultPresenter(IProjection<DefaultViewModel> projection, IValidator validator, IService service)
         {
-            _repository = repository;
+            _projection = projection;
             _validator = validator;
             _service = service;
         }
@@ -17,7 +17,7 @@
         public void Init(IDefaultView view)
         {
             _view = view;
-            view.Model = _repository.GetData();
+            view.Model = _projection.GetData();
         }
 
         public void Execute(Input input)

@@ -31,11 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.4\lib\netstandard2.0\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,7 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CollectionExtensions.cs" />
+    <Compile Include="Mvp\MyEntity\DapperMyEntityRepository.cs" />
+    <Compile Include="Database\DatabaseConnectionContext.cs" />
+    <Compile Include="Database\DatabaseConnectionFactory.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Model\MyEntity.cs" />
+    <Compile Include="Database\UnitOfWork.cs" />
+    <Compile Include="UnitOfWorkExtensions.cs" />
     <Compile Include="DependencyResolver.cs" />
+    <Compile Include="ICrudRepository.cs" />
     <Compile Include="IDependencyResolver.cs" />
     <Compile Include="Implementation\DataAnnotationValidator.cs" />
     <Compile Include="Mvp\Default\DefaultPresenter.cs" />
@@ -54,8 +66,10 @@
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="Mvp\Default\IDefaultView.cs" />
     <Compile Include="Input.cs" />
-    <Compile Include="IRepository.cs" />
+    <Compile Include="IProjection.cs" />
     <Compile Include="IService.cs" />
+    <Compile Include="Mvp\MyEntity\IMyEntityView.cs" />
+    <Compile Include="Mvp\MyEntity\MyEntityPresenter.cs" />
     <Compile Include="Mvp\SiteMaster\ISiteMasterView.cs" />
     <Compile Include="Mvp\IValidatedView.cs" />
     <Compile Include="IValidator.cs" />
@@ -71,7 +85,10 @@
     <Compile Include="StreamExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

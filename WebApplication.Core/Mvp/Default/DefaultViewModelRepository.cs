@@ -1,7 +1,7 @@
 ﻿namespace WebApplication.Core.Mvp.Default
 {
     public class DefaultViewModelRepository 
-        : IRepository<DefaultViewModel>
+        : IProjection<DefaultViewModel>
     {
         public DefaultViewModel GetData()
         {
