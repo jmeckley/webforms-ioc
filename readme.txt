@@ -36,3 +36,10 @@ as possible. We want to move all the logic and processing out of the Page(View) 
 
 In this particular design we are trying to use a 1:1 mapping of views to presenters. That may not always be the case, but it should be the goal to keep the focus on single responsilbity and 
 logical enacapsulation.
+
+
+/*Before Running*/
+Setup database. 
+1. connect to your local database
+   you may need to update the connection strings in the WebApi and WebApplication projects
+2. execute the init_database.sql script
