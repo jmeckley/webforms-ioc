@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApi
 {
-    class UnitOfWork
+    public class UnitOfWork
         : IUnitOfWork
             , IDisposable
     {
