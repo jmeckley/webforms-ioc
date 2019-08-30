@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.4\lib\netstandard2.0\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
@@ -146,6 +149,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\Database\DatabaseConnectionContext.cs" />
+    <Compile Include="App_Start\Database\DatabaseConnectionFactory.cs" />
+    <Compile Include="App_Start\Database\IUnitOfWork.cs" />
+    <Compile Include="App_Start\Database\UnitOfWork.cs" />
+    <Compile Include="App_Start\Database\UnitOfWorkAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\HttpStatusCodeAdditions.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -189,11 +197,16 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InMemoryRepository.cs" />
     <Compile Include="Controllers\IRepository.cs" />
+    <Compile Include="Controllers\MyEntityController.cs" />
+    <Compile Include="Controllers\MyEntityViewModel.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\ViewModel.cs" />
+    <Compile Include="DapperMyEntityRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IRepository.cs" />
+    <Compile Include="Models\MyEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -249,7 +262,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
