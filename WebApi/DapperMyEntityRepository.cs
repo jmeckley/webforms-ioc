@@ -16,12 +16,12 @@ namespace WebApi
 
         public Task<MyEntity> Get(int id, CancellationToken cancellationToken)
         {
-            return _database.Connection.QueryFirstAsync<MyEntity>("select * from [Table] where [Id] = @id", new {id}, _database.Transaction);
+            return _database.Connection.QueryFirstOrDefaultAsync<MyEntity>("select * from [Table] where [Id] = @id", new {id}, _database.Transaction);
         }
 
         public async Task<MyEntity> Insert(MyEntity item, CancellationToken cancellationToken)
         {
-            var id = await _database.Connection.ExecuteAsync("insert into [Table] (...) values (@Name, @Age); return @@Identity", new { item.Name, item.Age }, _database.Transaction);
+            var id = await _database.Connection.QueryFirstAsync<int>("insert into [Table] ([Name], [Age]) OUTPUT INSERTED.[Id] values (@Name, @Age)", new { item.Name, item.Age }, _database.Transaction);
             return await Get(id, cancellationToken);
         }
 
